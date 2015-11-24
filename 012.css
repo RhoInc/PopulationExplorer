@@ -1,0 +1,271 @@
+/************************/
+/* Participant Explorer Formatting */
+/************************/
+
+.ig-popCalc{
+	display: inline-block;
+	max-width: 100%;
+	padding: 4px;
+}
+.ig-popCalc *{
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.ig-popCalc h1, h2, h3{
+	margin-top: 0;
+}
+
+/*.ig-popCalc .selector.numeric > h3,
+.ig-popCalc .selector > .checklist > h3{
+	padding-bottom: 8px;
+}*/
+.ig-popCalc .hold-right{
+	position: absolute;
+	right: 0;
+	top: 0.5em;
+}
+
+.ig-popCalc .summary{
+	position: relative;
+	width: 20%;
+	float: left;
+	padding-right: 10px;
+	margin-bottom: 35px;
+}
+.ig-popCalc .summary > h2{
+	background: #777;
+	color: white;
+	font-size: 24px;
+	line-height: 1.4em;
+	padding: 5px;
+}
+.ig-popCalc .summary h1.text-chosen,
+.ig-popCalc .summary h1.text-chosen > span{
+	font-size: 32px;
+	line-height: 1em;
+	color: darkgreen;
+}
+.ig-popCalc .summary .sum-num{
+	margin: 4px 0;
+}
+.ig-popCalc .summary .sum-num > span{
+	padding: 2px 4px;
+	border-radius: 3px;
+}
+.ig-popCalc .summary span.total{
+	background: #ccc;
+}
+.ig-popCalc .summary span.denominator{
+	background: #B4E884;
+}
+.ig-popCalc .summary span.numerator{
+	background: darkgreen;
+	color: white;
+}
+.ig-popCalc .summary svg{
+	display: block;
+	margin-bottom: 10px;
+	margin-left: -5px;
+	transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+}
+.ig-popCalc .summary svg .block{
+	shape-rendering: crispEdges;
+}
+
+.ig-popCalc div.result{
+	margin:10px;
+}
+
+.ig-popCalc div.summary strong{
+	font-size:18pt;
+}
+
+.ig-popCalc .summary .preselections{
+	margin-top: 10px;
+}
+
+.ig-popCalc .summary .preselections > button{
+	display: block;
+	margin: 10px 0 0 0;
+}
+
+.ig-popCalc div.controls{
+	width: 80%;
+	float: left;
+	padding-left: 10px;
+	border-left: 1px dashed #ccc;;
+	margin-bottom: 10px;
+}
+.ig-popCalc div.editor{
+	position: absolute;
+	top: 50px;
+	right: 0;
+	z-index: 100;
+	background: white;
+	padding: 5px;
+	border-radius: 4px;
+	border: 1px solid black;
+}
+.ig-popCalc div.denominator,
+.ig-popCalc div.numerator{
+	position: relative;
+	display: inline-block;
+	width: 99%;
+	margin-left: 1%;
+	margin-bottom: 20px;
+}
+.ig-popCalc .control-head{
+	position: relative;
+	background: #eee;
+	padding: 5px;
+}
+.ig-popCalc .control-head .btn-download{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.ig-popCalc .controls .control-head{
+	position: relative;
+	margin: 0 0 10px -10px;
+}
+.ig-popCalc .control-head > h2{
+	margin: 0;
+	font-size: 24px;
+	line-height: 1.4em;
+}
+.ig-popCalc .control-head > p{
+	margin: 0;
+}
+.ig-popCalc .controls .control-head > .edit-btn{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.ig-popCalc .controls .control-head > .section-toggle{
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+
+.ig-popCalc div.selector{
+	float: left;
+	margin-right: 20px;
+}
+.ig-popCalc .selector.numeric{
+	width: 300px;
+}
+
+.ig-popCalc .selector h3{
+	position: relative;
+	font-size: 18px;
+	font-weight: bold;
+	padding-bottom: 3px;
+	border-bottom:1px solid #bbb;
+	margin-bottom:5px;
+}
+
+.ig-popCalc .selector h3 > .select-all{
+	font-size: 10px;
+	margin: 0 0 0px 8px;
+}
+
+.ig-popCalc .selector > ul{
+	list-style-type:none;
+	display:block;
+	font-size: 12px;
+	padding-left: 0;
+	margin-left: 0;
+}
+.ig-popCalc .selector > ul.checklist{
+	max-width: 500px;
+}
+.ig-popCalc .selector > ul > li{
+	margin-top: 4px;
+	margin-left:4px;
+}
+.ig-popCalc .selector > ul.checklist > li{
+	display: inline-block;
+	margin-top: 4px;
+	margin-left:4px;
+}
+
+.ig-popCalc .selector > ul > li span {
+	font-size: 12px;
+}
+
+.ig-popCalc .selector > ul > li > span{
+	margin-left: .5em;
+}
+
+.ig-popCalc .active > span{
+	font-weight: bold;
+}
+.ig-popCalc .selector > ul > li > label{
+	display: inline-block;
+	background: #eee;
+	font-weight: normal;
+	padding: 4px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	cursor: pointer;
+}
+.ig-popCalc .selector > ul > li > label.selected{
+	background: #B4E884;
+	font-weight: bold;
+	color: darkgreen;
+}
+.ig-popCalc .selector > ul > li > label > input{
+	margin: 0 4px 0 0;
+}
+
+/**overriding some default CSS rules from jQuery UI**/
+.ig-popCalc .ui-slider{
+	margin: 2.25em .5em;
+}
+
+.ig-popCalc .ui-state-hover, .ui-state-focus{
+	border-color: #378de5 !important;
+}
+
+.ig-popCalc .slider-label{
+	width: 50px;
+	font: inherit;
+	border: 0; 
+	color: black; 
+	font-weight: bold;
+	margin: -2 0 2 0 !important;
+	cursor: default;
+}
+
+.ig-popCalc .slider-label.min{
+	float: left !important;
+	text-align: left !important;
+}
+
+.ig-popCalc .slider-label.max{
+	float: right !important;
+	text-align: right !important;
+}
+
+.ig-popCalc .ui-slider-handle{
+	cursor: move !important;
+}
+
+/**end jQuery UI rules**/
+.ig-popCalc > .participantTable{
+	display: inline-block;
+	width: 100%;
+}
+
+.ig-popCalc > .participantTable > .ig-basicTable{
+	overflow-x: scroll;
+}
+
+.ig-popCalc > .participantTable > .ig-basicTable thead th,
+.ig-popCalc > .participantTable > .ig-basicTable tbody td{
+	font-size: 12px;
+}
