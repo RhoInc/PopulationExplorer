@@ -1,79 +1,56 @@
 ////////////////////////////////////////////////////////////////
-// Reusable component to create <<something amaaaaaazing>> with d3.js 
 //
-// Sample Function Call:
-// basicTable.init(
-// //element
-// "div#table",
-// //path
-// "h:/test.csv",
-// //settings
-// {height:100, width:100} //settings go here
-// )
+// Population Explorer Library
 //
 //////////////////////////////////////////////////////////////////
 
 var popExplore = {
 	//Load the data from <<path>> and call needed routines to create the interactive graphic
-	init: function(element, path, settings, onDataError){ //REQUIRED
+	init: function(element, raw, settings, onDataError){ //REQUIRED
 		var canvas = d3.select(element);
 		settings.canvas = canvas;
-		d3.csv(path,function(error,raw){
-			/**error checking**/
-			function errorNote(msg){
-				canvas.append("div").attr("class", "alert alert-error alert-danger").text(msg);
-			};
-			//alert if specified dataset cannot be found
-			if(error){
-				if(onDataError)
-					onDataError(error);
-				else{
-					errorNote("Dataset could not be loaded.");
-					throw new Error("Dataset could not be loaded. Check provided path.");
-				}
-			}
-			else{
-				var columns = d3.keys(raw[0]);
-				settings.denominator.forEach(function(e){
-					if(e.type === "checklist"){
-						e.names.forEach(function(n){
-							if(columns.indexOf(n) === -1){
-								errorNote("Error in settings object.");
-								throw new Error("In denominator checklist: "+"\""+n+"\" not found in dataset.");
-							}
-						})
-					}
-					else if(columns.indexOf(e.name) === -1){
-						errorNote("Error in settings object.");
-						throw new Error("In denominator: "+"\""+e.name+"\" not found in dataset.");
-					}
-				});
-				settings.numerator.forEach(function(e){
-					if(e.type === "checklist"){
-						e.names.forEach(function(n){
-							if(columns.indexOf(n) === -1){
-								errorNote("Error in settings object.");
-								throw new Error("In denominator checklist: "+"\""+n+"\" not found in dataset.");
-							}
-						})
-					}
-					else if(columns.indexOf(e.name) === -1){
-						errorNote("Error in settings object.");
-						throw new Error("In numerator: "+"\""+e.name+"\" not found in dataset.");
-					}
-				});
-			};
-			
-			settings.selectors = d3.keys(raw[0]).map(function(m){return {name: m} });
-			settings.denominator.forEach(function(e){e.chosen = true});
-			settings.numerator.forEach(function(e){e.chosen = true});
-			popExplore.layout(canvas,raw,settings);
-			var data = popExplore.dataprep(raw,settings);
-			d3.select(window).on("resize")();
+		
+		/**error checking**/
+		function errorNote(msg){
+			canvas.append("div").attr("class", "alert alert-error alert-danger").text(msg);
+		};
 
-			if(settings.has_builder)
-				popExplore.builder(settings.has_builder, canvas, path, data, settings)
-		}) 
+		var columns = d3.keys(raw[0]);
+		settings.denominator.forEach(function(e){
+			if(e.type === "checklist"){
+				e.names.forEach(function(n){
+					if(columns.indexOf(n) === -1){
+						errorNote("Error in settings object.");
+						throw new Error("In denominator checklist: "+"\""+n+"\" not found in dataset.");
+					}
+				})
+			}
+			else if(columns.indexOf(e.name) === -1){
+				errorNote("Error in settings object.");
+				throw new Error("In denominator: "+"\""+e.name+"\" not found in dataset.");
+			}
+		});
+		settings.numerator.forEach(function(e){
+			if(e.type === "checklist"){
+				e.names.forEach(function(n){
+					if(columns.indexOf(n) === -1){
+						errorNote("Error in settings object.");
+						throw new Error("In denominator checklist: "+"\""+n+"\" not found in dataset.");
+					}
+				})
+			}
+			else if(columns.indexOf(e.name) === -1){
+				errorNote("Error in settings object.");
+				throw new Error("In numerator: "+"\""+e.name+"\" not found in dataset.");
+			}
+		});
+		
+		settings.selectors = d3.keys(raw[0]).map(function(m){return {name: m} });
+		settings.denominator.forEach(function(e){e.chosen = true});
+		settings.numerator.forEach(function(e){e.chosen = true});
+		popExplore.layout(canvas,raw,settings);
+		var data = popExplore.dataprep(raw,settings);
+		d3.select(window).on("resize")();
 	},
 
 	remove: function(settings){
@@ -91,13 +68,15 @@ var popExplore = {
 			
 //		var summary = wrapper.append("div").attr("class","summary alert alert-info")
 //		.html("Overview: <strong><span class='percent'></span> selected.</strong> <span class='total'></span> "+settings.head+" &rarr; <span class='denominator'></span> subpopulation of interest &rarr; <span class='numerator'></span> participants selected")
+
 		var summary = wrapper.append("div").attr("class","summary");
 		summary.append("h2").html("Summary");
+		settings.rowUnits = settings.rowUnits ? settings.rowUnits : "rows"
 		var summary_nums = summary.append("div").attr("class", "summary-nums");
 		summary_nums.append("h1").html("<span class='percent'></span> selected").attr("class","text-chosen")
-		summary_nums.append("div").attr("class", "sum-num").html("<span class='total'></span> total population");
-		summary_nums.append("div").attr("class", "sum-num").html("<span class='denominator'></span> subpopulation of interest");
-		summary_nums.append("div").attr("class", "sum-num").html("<span class='numerator'></span> participants selected");
+		summary_nums.append("div").attr("class", "sum-num").html("<span class='total'></span> "+settings.rowUnits+" total");
+		summary_nums.append("div").attr("class", "sum-num").html("<span class='denominator'></span> "+settings.rowUnits+" subpopulation");
+		summary_nums.append("div").attr("class", "sum-num").html("<span class='numerator'></span> "+settings.rowUnits+" selected");
 
 		if(settings.viz){
 			settings.margin = {top: 0, bottom: 5, right: 5, left: 5};
@@ -115,9 +94,7 @@ var popExplore = {
 				.attr("class", "ig-svg")
 				.attr("width", settings.width + settings.margin.left + settings.margin.right)
 				.attr("height", settings.height + settings.margin.top + settings.margin.bottom)
-				//.attr("transform", "rotate(-90)")
-				//.attr("viewBox", "0 0 "+(settings.width + settings.margin.left + settings.margin.right)+" "+(settings.height + settings.margin.top + settings.margin.bottom))
-				//.attr("preserveAspectRatio", "xMinYMid")
+
 				.append("g")
 					.attr("transform", "translate(" + settings.margin.left + "," + settings.margin.top + ")")
 
@@ -171,7 +148,6 @@ var popExplore = {
 			});
 
 		var numer = controls.append("div").attr("class","numerator");
-		//.append("h2").html("Participant Characteristics <small><span class='percent'></span> meet selected criteria (<span class='numerator'></span> of <span class='denominator'></span>)</small>")
 
 		var numer_head = numer.append("div").attr("class", "control-head");
 		numer_head.append("h2").text("Participant Characteristics");
@@ -199,14 +175,14 @@ var popExplore = {
 
 				var sub = data.filter(function(e){return e.numerator==1 && e.denominator==1});
 				var print_canvas = d3.select("body").append("div").attr("id", "print-table");
+				
 				//Draw the table
 				basicTable.layout(print_canvas,sub,print_table_settings);
 				var sub=basicTable.transform(sub,print_table_settings);
 				basicTable.draw(print_canvas,sub,print_table_settings) ;
-
 				var print_window = window.open();
 				var XMLS = new XMLSerializer(); 
-				//console.log(XMLS.serializeToString(participantTable.node()))
+
 				var css = 'table { border-collapse: collapse; font: 12px sans-serif;} .table thead th {vertical-align: bottom; border: none;} .table th {font-weight: bold; } .table th, .table td {padding: 8px; line-height: 20px; text-align: left; vertical-align: top; border-top: 1px solid #dddddd;}';
 			    head = print_window.document.head;
 			    style = print_window.document.createElement('style');
@@ -340,6 +316,7 @@ var popExplore = {
 		var addSelector = function(area, setting){
 			//Numerator or Denominator? 
 			var current = canvas.select("div."+area);
+			
 			/////////////////////////////////
 			//Create categorical selectors
 			////////////////////////////////
