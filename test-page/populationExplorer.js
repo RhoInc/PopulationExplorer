@@ -1,5 +1,5 @@
 var dataElement = ".example-viz";
-var dataPath = "https://rhoinc.github.io/data-library/data/clinical-trials/renderer-specific/leap_primary_outcome_determination.csv"
+var dataPath = "https://rhoinc.github.io/data-library/data/clinical-trials/renderer-specific/leap-primary-outcome-determination.csv"
 var settings = {
    "denominator":[
        {"type":"cat","positive":["1"],"name":"Stratum (char)","head":"Stratum"},
