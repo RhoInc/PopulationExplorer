@@ -1,6 +1,6 @@
 {
   "name": "population-explorer",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "an interactive population explorer",
   "main": "populationExplorer.js",
   "scripts": {
