@@ -1,0 +1,19 @@
+{
+  "name": "population-explorer",
+  "version": "0.1.0",
+  "description": "an interactive population explorer",
+  "main": "populationExplorer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RhoInc/populationExplorer.git"
+  },
+  "author": "Rho, Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RhoInc/populationExplorer/issues"
+  },
+  "homepage": "https://github.com/RhoInc/populationExplorer#readme"
+}
